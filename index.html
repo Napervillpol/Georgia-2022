@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv='cache-control' content='no-cache'> 
+        <meta http-equiv='expires' content='0'> 
+        <meta http-equiv='pragma' content='no-cache'>
+        <meta charset="utf-8">
+        <title>Napervillepol Election Centre</title>
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+        integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+        crossorigin=""></script>
+       
+        <style>
+            body{
+                margin: 0;
+                padding: 0;
+            }
+
+            h1{
+                text-align: left;
+                padding-left:250px;
+            }
+
+            #map{
+                position: absolute;
+                top: 150px;
+                bottom: 0;
+                left: 75px;
+                width: 800px;
+                height: 700px;
+                border-style: ridge;
+            }
+            .square {
+                position: absolute;               
+                Left: 980px;
+                Top: 150px;
+                height: 100px;
+                width: 230px;
+               
+                border-style: solid;
+                border-color: black;
+                border-width: 2px;
+            }
+            #info {
+                position: absolute;               
+                Left: 1000px;
+                Top: 170px;
+                font: 16px/20px Arial, Helvetica, sans-serif;
+                background: white;
+            }
+
+            #block {
+                position: absolute;   
+                height: 30px;
+                width:  50px;
+                
+                
+            }
+            #label{
+                font: 14px/1.3em Open Sans,sans-serif;
+                margin-top: 40px;
+                font-style: italic;
+                text-align: center;
+            }
+            .square2 {
+                position: absolute;               
+                Left: 980px;
+                Top: 350px;
+                height: 100px;
+                width: 250px;
+               
+                border-style: solid;
+                border-color: black;
+                border-width: 2px;
+            }
+            #summary {
+                position: absolute;               
+                Left: 1000px;
+                Top: 370px;
+                font: 16px/20px Arial, Helvetica, sans-serif;
+                background: white;
+            }
+            .button {
+                position: absolute; 
+                background-color: #ccc9c0; 
+                border: none;
+                color: black;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                
+                font-size: 16px;
+}
+          
+            
+        </style>
+    </head>
+    
+    <body>
+       
+        <div id='map'></div>
+        <h1>MN 1st Special Election Results</h1>
+        <div id ="block" style="background-color: #035382;Left: 75px; "><p id="label">>50%</p></div>
+        <div id ="block" style="background-color: #16628e;Left: 125px; "><p id="label">>40%</p></div>
+        <div id ="block" style="background-color: #29719b;Left: 175px; "><p id="label">>30%</p></div>
+        <div id ="block" style="background-color: #3c81a7;Left: 225px; "><p id="label">>20%</p></div>
+        <div id ="block" style="background-color: #4f90b3;Left: 275px; "><p id="label">>10%</p></div>
+        <div id ="block" style="background-color: #629fc0;Left: 325px; "><p id="label">>10%</p></div>
+        <div id ="block" style="background-color: #75aecc;Left: 375px; "><p id="label">>5%</p></div>
+        <div id ="block" style="background-color: #89bed8;Left: 425px; "><p id="label">>0%</p></div>
+        <div id ="block" style="background-color: #ccc9c0;Left: 475px; "><p id="label">=0%</p></div>
+        <div id ="block" style="background-color: #f09a7b;Left: 525px; "><p id="label">>0%</p></div>
+        <div id ="block" style="background-color: #e7846e;Left: 575px; "><p id="label">>5%</p></div>
+        <div id ="block" style="background-color: #dd6e60;Left: 625px; "><p id="label">>10%</p></div>
+        <div id ="block" style="background-color: #d45853;Left: 675px; "><p id="label">>15%</p></div>
+        <div id ="block" style="background-color: #cb4245;Left: 725px; "><p id="label">>20%</p></div>
+        <div id ="block" style="background-color: #c22c38;Left: 775px; "><p id="label">>30%</p></div>
+        <div id ="block" style="background-color: #b8162a;Left: 825px; "><p id="label">>40%</p></div>
+        <div id ="block" style="background-color: #af001d;Left: 875px; "><p id="label">>50%</p></div>
+        <div id='info'>
+            <b> Name</b><br />Brad Finstad:&nbsp; Total Votes</b><br />Jeff Ettinger: Total Votes
+        </div>
+        <div class="square"></div>
+        <div id ='summary'> <b> Total</b><br />Brad Finstad:&nbsp; Total Votes</b><br />Jeff Ettinger: Total Votes</div>
+        <div class="square2"></div>
+        <button id = 'BCounty'class="button"  style="Top: 875px; Left:200px;">COUNTY</button>
+        <button id = 'BPrecinct' class="button"  style="Top: 875px; Left:600px;">PRECINCT</button>
+        <script>
+             var geojson; 
+             var geojson2;
+            function style(feature) {
+		        return {
+			        weight: .5,
+			        opacity: 0.7,
+			        color: getColor(feature.properties.MARGIN),			
+			        fillOpacity: 0.7,
+			        fillColor: getColor(feature.properties.MARGIN)
+		        };
+	        }       
+            var map = L.map('map').setView([44.163578, -93.999400], 7.3);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                 maxZoom: 19,
+                 attribution: '© OpenStreetMap'
+            }).addTo(map);
+            let url = 'https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/Precincts_Output.geojson';
+            let url2 = 'https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/Counties_Output.geojson';
+            let url3 ='https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/Poutput.json';
+            let url4 ='https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/coutput.json';
+            
+           
+                
+           
+
+            
+                
+           
+            const response3 = fetch(url3).then(response3 => response3.json()).then(response3 => {
+            const response = fetch(url).then(response => response.json()).then(response => {
+            let len =0 
+            len =response.features.len;
+           
+            let DVOTE=0;
+            let RVOTE=0;
+            let TVOTE=0;
+           
+       
+                for ( var i in response.features) {
+                    
+                    DVOTE += parseInt(response.features[i].properties.DEM_VOTES)
+                    RVOTE += parseInt(response.features[i].properties.GOP_VOTES)
+                    TVOTE += parseInt(response.features[i].properties.TOTAL_VOTES)
+                   
+                    for ( var j in response.features) {
+                        
+                        if(response.features[i].properties.ID == response3['ID'][j]){
+                        
+                            response.features[i].properties.DEM_VOTES = response3['Ettinger - DFL'][j]
+                            response.features[i].properties.GOP_VOTES =  response3['Finstad - R'][j]
+                            response.features[i].properties.TOTAL_VOTES = response3['Total'][j]
+                            response.features[i].properties.MARGIN = (response3['Ettinger - DFL'][j]-response3['Finstad - R'][j])/ response3['Total'][j]
+                        }
+                    }
+                
+                }         
+            geojson = L.geoJson(response,
+            {
+               
+                style: style,
+                onEachFeature: onEachFeature
+                
+            });
+            
+            
+            
+                
+            document.getElementById("summary").innerHTML = "<b>Total</b>" + '<br />'+ 'Brad Finstad:&nbsp;'+ RVOTE + '&nbsp&nbsp('+Math.round(RVOTE/(TVOTE)*100)+'%)'+'</b><br />' + 'Jeff Ettinger: &nbsp;' + DVOTE +'&nbsp&nbsp('+Math.round(DVOTE/(TVOTE)*100)+'%)'
+            
+            
+            map.addLayer(geojson)
+        })
+        })
+        const response2 = fetch(url2).then(response2 => response2.json()).then(response2 => {
+            const response4 = fetch(url4).then(response4 => response4.json()).then(response4 => {                
+            for ( var i in response2.features) {
+                    
+                  
+                for ( var j in response2.features) {
+                        
+                        if(response2.features[i].properties.COUN == response4['County Code'][j]){
+                        
+                            response2.features[i].properties.DEM_VOTES = response4['Ettinger - DFL'][j]
+                            response2.features[i].properties.GOP_VOTES =  response4['Finstad - R'][j]
+                            response2.features[i].properties.TOTAL_VOTES = response4['Total'][j]
+                            response2.features[i].properties.MARGIN = response4['Margin'][j]
+                        }
+                    }
+                    
+                
+                }         
+            
+            
+            
+                            geojson2= L.geoJson(response2,
+                            {
+                               
+                                style: style,
+                                onEachFeature: onEachFeature
+                                
+                            })
+                           
+                                             
+                        })                
+        })      
+
+
+             document.getElementById("BCounty").addEventListener("click", function() {
+                    ClickCounty();
+                });
+            document.getElementById("BPrecinct").addEventListener("click", function() {
+                ClickPrecinct();
+            });
+             
+             function getColor(d) {
+                
+		        return d > .5 ? '#035382' :
+			    d > .4  ? '#16628e' :
+			    d > .3  ? '#29719b' :
+			    d > .2 ? '#3c81a7' :
+			    d > .15 ? '#4f90b3' :
+			    d > .1   ? '#629fc0' :
+			    d > .05  ? '#75aecc' : 
+                d > 0 ? '#89bed8':
+                d == 0 ? '#ccc9c0':
+                d < -.5 ? '#af001d':
+			    d <-.4  ? '#b8162a' : 
+			    d < -.3   ? '#c22c38' :
+			    d < -.2 ? '#cb4245' :
+			    d < -.15 ? '#d45853' :
+			    d < -.1  ? '#dd6e60' :
+			    d < -.05  ? '#e7846e' :
+                d < 0 ? '#f09a7b' :
+                '#ccc9c0';
+	    }
+
+        function getColorP(d) {
+            d = -d;
+		        return d > .5 ? '#7b3294' :
+			    d > .4  ? '#84419c' :
+			    d > .3  ? '#8e50a4' :
+			    d > .2 ? '#9760ac' :
+			    d > .15 ? '#a16fb4' :
+			    d > .1   ? '#ab7fbc' :
+			    d > .05  ? '#b48ec3' : 
+                d > 0 ? '#be9dcb':
+                d == 0 ? '#ccc9c0':
+                d < -.5 ? '#008837':
+			    d <-.4  ? '#169345' : 
+			    d < -.3   ? '#2c9e53' :
+			    d < -.2 ? '#42a961' :
+			    d < -.15 ? '#58b46f' :
+			    d < -.1  ? '#6fc07d' :
+			    d < -.05  ? '#85cb8b' :
+                d < 0 ? '#9bd699' :
+                '#fae194';
+	    }
+
+        function highlightFeature(e) {
+        var layer = e.target;
+
+         layer.setStyle({
+            weight: 2,
+            color: '#000000',
+            
+            fillOpacity: 0.7
+        });
+        info.update(layer.feature.properties);
+
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+        }
+        function resetHighlight(e) {
+            geojson.resetStyle(e.target);
+            info.update();
+
+        }
+        function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
+
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+info.update = function (props) {
+    
+    document.getElementById("info").innerHTML =  (props ?
+        '<b>' + props.PCTNAME + '</b><br />'+ 'Brad Finstad:&nbsp;'+ props.GOP_VOTES + '&nbsp&nbsp('+Math.round(props.GOP_VOTES/(props.TOTAL_VOTES)*100)+'%)'+'</b><br />' + 'Jeff Ettinger: &nbsp;' + props.DEM_VOTES +'&nbsp&nbsp('+Math.round(props.DEM_VOTES/(props.GOP_VOTES+props.DEM_VOTES)*100)+'%)'
+        : '<b>' + 'Name' + '</b><br />'+ 'Brad Finstad:&nbsp;'+ ' Total Votes' + '</b><br />' + 'Jeff Ettinger: ' + 'Total Votes');
+};
+
+    function ClickCounty(){
+
+      
+       map.removeLayer(geojson)
+       map.addLayer(geojson2)
+    
+                        
+    }
+
+    function ClickPrecinct(){
+    map.removeLayer(geojson2)
+       map.addLayer(geojson)
+   
+                                                  
+                        
+    }
+
+
+        </script>
+        
+    </body>
+</html>

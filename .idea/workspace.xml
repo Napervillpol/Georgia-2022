@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="497c9948-ae74-4a64-aad7-bda8a7e9f1ad" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -10,16 +13,19 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2Ctzw1WOMH9sNaKTRL22qcRtoFZ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "last_opened_file_path": "C:/Users/William/Dropbox/My PC (DESKTOP-7FLKCVD)/Documents/Python/Georgia-2022/Georgia.py"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/William/Dropbox/My PC (DESKTOP-7FLKCVD)/Documents/Python/Georgia-2022/Georgia.py&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Georgia" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Georgia-2022" />
