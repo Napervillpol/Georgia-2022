@@ -64,5 +64,3 @@ df = df.merge(df1, on='Counties')
 df.to_csv('Output.csv', index=False)
 df.to_json('runoff.json')
 
-
-
