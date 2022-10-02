@@ -40,7 +40,7 @@ def get_candidate(name, xpath):
     return df
 
 
-url = 'https://results.enr.clarityelections.com//GA//107556/275242/reports/detailxml.zip'
+url = 'https://results.enr.clarityelections.com//GA//105369/271927/reports/detailxml.zip'
 
 r = requests.get(url)
 
@@ -55,12 +55,12 @@ zf.close()
 tree = etree.parse('detail.xml')
 root = tree.getroot()
 
-df = get_candidate('Ossoff', ".//Choice[@key='5']")
+df = get_candidate('Biden', ".//Choice[@key='2']")
 
-df1 = get_candidate('Perdue', ".//Choice[@key='4']")
+df1 = get_candidate('Trump', ".//Choice[@key='1']")
 
 df = df.merge(df1, on='Counties')
 
-df.to_csv('Output.csv', index=False)
-df.to_json('runoff.json')
+df.to_csv('President.csv', index=False)
+#df.to_json('runoff.json')
 
