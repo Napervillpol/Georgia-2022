@@ -100,6 +100,24 @@ def assign_race(Dem,Rep,Dem_name,Rep_name):
 
     Race = race(mail,eday,prov,total)
     return Race;
+
+def calculations(df,Dem_name,Rep_name):
+   
+    df[Dem_name]=df[Dem_name].astype(str)
+    df[Rep_name]=df[Rep_name].astype(str)
+    
+    df[Dem_name]=df[Dem_name].str.replace(',','')
+    df[Rep_name]=df[Rep_name].str.replace(',','')
+
+    df[Dem_name]=df[Dem_name].astype(int)
+    df[Rep_name]=df[Rep_name].astype(int)
+    
+    df.insert(3, "Total", df[Dem_name]+df[Rep_name])
+    df.insert(4, "Net Votes", df[Dem_name]-df[Rep_name])
+    df.insert(5, Dem_name+" Pct", df[Dem_name]/(df[Dem_name]+df[Rep_name]))
+    df.insert(6, Rep_name+" Pct", df[Rep_name]/(df[Dem_name]+df[Rep_name]))
+    df.insert(7, "Margin",(df[Dem_name]/(df[Dem_name]+df[Rep_name])) -(df[Rep_name]/(df[Dem_name]+df[Rep_name])))
+    
 url = 'https://results.enr.clarityelections.com//GA//105369/271927/reports/detailxml.zip'
 
 r = requests.get(url)
