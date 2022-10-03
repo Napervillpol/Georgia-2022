@@ -188,8 +188,9 @@ Ossoff = get_candidate(".//Choice[@key='5']")
 Perdue = get_candidate(".//Choice[@key='4']")
 
 Senaterunoff =assign_race(Ossoff,Perdue,"Ossoff","Perdue")
+calculate_shift(Senaterunoff,President)
 
-
+write_to_excel(President,"President")
 write_to_excel(Senaterunoff,"Senaterunoff")
 #df = df.merge(df1, on='Counties')
 
