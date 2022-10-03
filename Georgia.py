@@ -11,6 +11,17 @@ def safediv(x,y):
         return x/y
     except ZeroDivisionError:
         return 0
+
+def write_to_excel(race,race_name):
+    writer = pd.ExcelWriter('GA_'+race_name+ '.xlsx', engine='xlsxwriter')
+
+    race.mail.to_excel(writer,sheet_name="Mail",index=False)
+    race.eday.to_excel(writer,sheet_name="Election Day",index=False)
+    race.advance.to_excel(writer,sheet_name="Advance",index=False)
+    race.prov.to_excel(writer,sheet_name="Provisonal",index=False)
+    race.total.to_excel(writer,sheet_name="Total",index=False)
+
+    writer.save()
 class race:
     mail=[]
     eday=[]
@@ -135,6 +146,8 @@ def calculate_shift(df_2022,df_2020):
      df_2022.total.insert(8, "Pct Shift",df_2022.total["Margin"]-df_2020.total["Margin"])
      df_2022.total.insert(9, "Turnout",df_2022.total["Total"]/df_2020.total["Total"])
 
+
+
 url = 'https://results.enr.clarityelections.com//GA//105369/271927/reports/detailxml.zip'
 
 r = requests.get(url)
@@ -156,7 +169,28 @@ Trump = get_candidate(".//Choice[@key='1']")
 President =assign_race(Biden,Trump,"Biden","Trump")
 
 
-print(President.prov)
+url = 'https://results.enr.clarityelections.com//GA//107556/275242/reports/detailxml.zip'
+
+r = requests.get(url)
+
+filename = url.split('/')[-1]  # this will take only -1 splitted part of the url
+
+with open(filename, 'wb') as output_file:
+    output_file.write(r.content)
+
+zf = ZipFile('detailxml.zip', 'r')
+zf.extractall()
+zf.close()
+tree = etree.parse('detail.xml')
+root = tree.getroot()
+
+Ossoff = get_candidate(".//Choice[@key='5']")
+Perdue = get_candidate(".//Choice[@key='4']")
+
+Senaterunoff =assign_race(Ossoff,Perdue,"Ossoff","Perdue")
+
+
+write_to_excel(Senaterunoff,"Senaterunoff")
 #df = df.merge(df1, on='Counties')
 
 #df.to_csv('President.csv', index=False)
