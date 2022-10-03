@@ -31,7 +31,7 @@ def get_candidate(xpath):
     for VoteType in root.find(xpath):
 
         columns = []
-        header.append(VoteType.attrib['name']+' ' +name)
+        header.append(VoteType.attrib['name'])
         
         for County in VoteType:
             columns.append(County.attrib['votes'])
@@ -47,7 +47,7 @@ def get_candidate(xpath):
 
 
     df.insert(0, "Counties", counties)
-    df.insert(5, 'Total ', df['Absentee by Mail Votes'].astype(int) + df['Election Day Votes'].astype(int)+df['Advanced Voting Votes'].astype(int)+df['Provisional Votes'].astype(int))
+    df.insert(5, 'Total', df['Absentee by Mail Votes'].astype(int) + df['Election Day Votes'].astype(int)+df['Advanced Voting Votes'].astype(int)+df['Provisional Votes'].astype(int))
 
     return df
 
@@ -77,8 +77,8 @@ def assign_race(Dem,Rep,Dem_name,Rep_name):
 
     Rep_advance  = Rep[['Counties','Advanced Voting Votes']]
     Rep_advance.columns=['County',Rep_name]
-    eday = Dem_eday.merge(Rep_eday, on='County')
-    calculations(eday,Dem_name,Rep_name)
+    advance = Dem_advance.merge(Rep_advance, on='County')
+    calculations(advance,Dem_name,Rep_name)
 
     #Provisonal
     Dem_prov= Dem[['Counties','Provisional Votes']]
@@ -90,15 +90,15 @@ def assign_race(Dem,Rep,Dem_name,Rep_name):
     calculations(prov,Dem_name,Rep_name)
 
      #Total
-    Dem_total= Dem[['Counties','Votes']]
+    Dem_total= Dem[['Counties','Total']]
     Dem_total.columns=['County',Dem_name]
 
-    Rep_total = Rep[['Counties','Votes']]
+    Rep_total = Rep[['Counties','Total']]
     Rep_total.columns=['County',Rep_name]
     total = Dem_total.merge(Rep_total, on='County')
     calculations(total,Dem_name,Rep_name)
 
-    Race = race(mail,eday,prov,total)
+    Race = race(mail,eday,advance,prov,total)
     return Race;
 
 def calculations(df,Dem_name,Rep_name):
@@ -117,7 +117,7 @@ def calculations(df,Dem_name,Rep_name):
     df.insert(5, Dem_name+" Pct", df[Dem_name]/(df[Dem_name]+df[Rep_name]))
     df.insert(6, Rep_name+" Pct", df[Rep_name]/(df[Dem_name]+df[Rep_name]))
     df.insert(7, "Margin",(df[Dem_name]/(df[Dem_name]+df[Rep_name])) -(df[Rep_name]/(df[Dem_name]+df[Rep_name])))
-    
+
 url = 'https://results.enr.clarityelections.com//GA//105369/271927/reports/detailxml.zip'
 
 r = requests.get(url)
@@ -134,11 +134,14 @@ tree = etree.parse('detail.xml')
 root = tree.getroot()
 
 Biden = get_candidate(".//Choice[@key='2']")
-
 Trump = get_candidate(".//Choice[@key='1']")
 
+President =assign_race(Biden,Trump,"Biden","Trump")
+
+
+print(President.prov)
 #df = df.merge(df1, on='Counties')
 
-df.to_csv('President.csv', index=False)
+#df.to_csv('President.csv', index=False)
 #df.to_json('runoff.json')
 
