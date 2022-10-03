@@ -23,7 +23,7 @@ class race:
         self.advance=advance
         self.prov=prov
         self.total=total
-def get_candidate(name, xpath):
+def get_candidate(xpath):
     header = []
     rows = []
     counties = []
@@ -47,11 +47,59 @@ def get_candidate(name, xpath):
 
 
     df.insert(0, "Counties", counties)
-    df.insert(5, 'Total '+name, df['Absentee by Mail Votes '+name].astype(int) + df['Election Day Votes '+name].astype(int)+df['Advanced Voting Votes '+name].astype(int)+df['Provisional Votes '+name].astype(int))
+    df.insert(5, 'Total ', df['Absentee by Mail Votes'].astype(int) + df['Election Day Votes'].astype(int)+df['Advanced Voting Votes'].astype(int)+df['Provisional Votes'].astype(int))
 
     return df
 
+def assign_race(Dem,Rep,Dem_name,Rep_name):
+       
+    #Mail 
+    Dem_mail = Dem[['Counties','Absentee by Mail Votes']]
+    Dem_mail.columns=['County',Dem_name]
 
+    Rep_mail = Rep[['Counties','Absentee by Mail Votes']]
+    Rep_mail.columns=['County',Rep_name]
+    mail = Dem_mail.merge(Rep_mail, on='County')
+    calculations(mail,Dem_name,Rep_name)
+   
+    #Election day
+    Dem_eday = Dem[['Counties','Election Day Votes']]
+    Dem_eday.columns=['County',Dem_name]
+
+    Rep_eday = Rep[['Counties','Election Day Votes']]
+    Rep_eday.columns=['County',Rep_name]
+    eday = Dem_eday.merge(Rep_eday, on='County')
+    calculations(eday,Dem_name,Rep_name)
+
+    #Advance
+    Dem_advance = Dem[['Counties','Advanced Voting Votes']]
+    Dem_advance.columns=['County',Dem_name]
+
+    Rep_advance  = Rep[['Counties','Advanced Voting Votes']]
+    Rep_advance.columns=['County',Rep_name]
+    eday = Dem_eday.merge(Rep_eday, on='County')
+    calculations(eday,Dem_name,Rep_name)
+
+    #Provisonal
+    Dem_prov= Dem[['Counties','Provisional Votes']]
+    Dem_prov.columns=['County',Dem_name]
+
+    Rep_prov = Rep[['Counties','Provisional Votes']]
+    Rep_prov.columns=['County',Rep_name]
+    prov = Dem_prov.merge(Rep_prov, on='County')
+    calculations(prov,Dem_name,Rep_name)
+
+     #Total
+    Dem_total= Dem[['Counties','Votes']]
+    Dem_total.columns=['County',Dem_name]
+
+    Rep_total = Rep[['Counties','Votes']]
+    Rep_total.columns=['County',Rep_name]
+    total = Dem_total.merge(Rep_total, on='County')
+    calculations(total,Dem_name,Rep_name)
+
+    Race = race(mail,eday,prov,total)
+    return Race;
 url = 'https://results.enr.clarityelections.com//GA//105369/271927/reports/detailxml.zip'
 
 r = requests.get(url)
@@ -67,11 +115,11 @@ zf.close()
 tree = etree.parse('detail.xml')
 root = tree.getroot()
 
-df = get_candidate('Biden', ".//Choice[@key='2']")
+Biden = get_candidate(".//Choice[@key='2']")
 
-df1 = get_candidate('Trump', ".//Choice[@key='1']")
+Trump = get_candidate(".//Choice[@key='1']")
 
-df = df.merge(df1, on='Counties')
+#df = df.merge(df1, on='Counties')
 
 df.to_csv('President.csv', index=False)
 #df.to_json('runoff.json')
