@@ -11,6 +11,18 @@ def safediv(x,y):
         return x/y
     except ZeroDivisionError:
         return 0
+class race:
+    mail=[]
+    eday=[]
+    advance=[];
+    prov=[]
+    total=[]
+    def __init__(self, mail,eday,advance,prov,total):
+        self.mail=mail
+        self.eday=eday
+        self.advance=advance
+        self.prov=prov
+        self.total=total
 def get_candidate(name, xpath):
     header = []
     rows = []
