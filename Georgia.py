@@ -6,6 +6,11 @@ from lxml import etree
 from zipfile import ZipFile
 from urllib.request import urlopen
 
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+import statsmodels.api as sm
+
 def safediv(x,y):
     try:
         return x/y
@@ -58,7 +63,7 @@ def get_candidate(xpath):
 
 
     df.insert(0, "Counties", counties)
-    df.insert(5, 'Total', df['Absentee by Mail Votes'].astype(int) + df['Election Day Votes'].astype(int)+df['Advanced Voting Votes'].astype(int)+df['Provisional Votes'].astype(int))
+    df.insert(5, 'Total', df['Absentee by Mail Votes'].astype(int) + df['Election Day Votes'].astype(int)+df['Advance Voting Votes'].astype(int)+df['Provisional Votes'].astype(int))
 
     return df
 
@@ -83,10 +88,10 @@ def assign_race(Dem,Rep,Dem_name,Rep_name):
     calculations(eday,Dem_name,Rep_name)
 
     #Advance
-    Dem_advance = Dem[['Counties','Advanced Voting Votes']]
+    Dem_advance = Dem[['Counties','Advance Voting Votes']]
     Dem_advance.columns=['County',Dem_name]
 
-    Rep_advance  = Rep[['Counties','Advanced Voting Votes']]
+    Rep_advance  = Rep[['Counties','Advance Voting Votes']]
     Rep_advance.columns=['County',Rep_name]
     advance = Dem_advance.merge(Rep_advance, on='County')
     calculations(advance,Dem_name,Rep_name)
@@ -146,54 +151,96 @@ def calculate_shift(df_2022,df_2020):
      df_2022.total.insert(8, "Pct Shift",df_2022.total["Margin"]-df_2020.total["Margin"])
      df_2022.total.insert(9, "Turnout",df_2022.total["Total"]/df_2020.total["Total"])
 
+def Statmodels(President,Current_race,Current_name,Title,w):
+    
+    print(w)
+    Current_race=Current_race.drop(columns =['Total'])
+    Scatter = President.merge(Current_race,on="County")
+    
+ 
+    plt.title(Title)
+    plt.xlabel("Biden Pct")
+    plt.ylabel(Current_name)
+
+    plt.scatter(Scatter['Biden Pct'],Scatter[Current_name],w)
+   
+   
+    x = President['Biden Pct'].reset_index()
+    y = Current_race[Current_name].dropna().reset_index()
+    w = w.dropna().reset_index()
+
+    Current_graph =x.merge(y,on="index")
+    #Current_graph=Current_graph.drop(columns=['index'])
+    
+    Current_graph =Current_graph.merge(w,on="index")
+    Current_graph=Current_graph.drop(columns=['index'])
+   
+
+    x = Current_graph['Biden Pct']
+    y = Current_graph[Current_name]
+    z = Current_graph.iloc[:,2]
+    
+ 
+    wls_model = sm.WLS(y,x,z)
+    results = wls_model.fit()
+    
+    
+    plt.plot(x,results.fittedvalues)
+    
+    xpoint = pd.DataFrame(x, columns=['Biden Pct'])
+    ypoint = pd.DataFrame(results.fittedvalues, columns=['expected'])
+    newline = pd.merge(xpoint, ypoint, left_index=True, right_index=True)
+    newline =newline.sort_values(by=['expected']).reset_index(drop=True)
+
+    swing = (newline.iloc[0][1] - newline.iloc[0][0] + newline.iloc[-1][1] - newline.iloc[-1][0])
+    print("{} swing: {:.1%}".format(Title,swing))
+    x = np.linspace(0,1,5)
+    y = x
+   
+    plt.grid()
+    plt.plot(x, y, '-r', label='y=x+1')
+
+    plt.show()
+
+def reporting(xpath):
+    header=[]
+    pct_reporting=[]
+    for Counties in root.find(xpath):
+        header.append(Counties.attrib['name'])
+        pct_reporting.append(Counties.attrib['precinctsReportingPercent'])
+    df2 = pd.DataFrame( pct_reporting,columns=['precinctsReportingPercent'])
+
+    df = pd.DataFrame(header,columns=['County'])
+    df=df.join(df2, how='outer')
+    print(df)
+    
+    
+
+tree = etree.parse('detail2022.xml')
+root = tree.getroot()
+
+Warnock = get_candidate(".//Choice[@key='2']")
+Walker = get_candidate(".//Choice[@key='1']")
+
+Senate =assign_race(Warnock,Walker,"Warnock","Walker")
 
 
-url = 'https://results.enr.clarityelections.com//GA//105369/271927/reports/detailxml.zip'
-
-r = requests.get(url)
-
-filename = url.split('/')[-1]  # this will take only -1 splitted part of the url
-
-with open(filename, 'wb') as output_file:
-    output_file.write(r.content)
-
-zf = ZipFile('detailxml.zip', 'r')
-zf.extractall()
-zf.close()
 tree = etree.parse('detail.xml')
 root = tree.getroot()
 
-Biden = get_candidate(".//Choice[@key='2']")
-Trump = get_candidate(".//Choice[@key='1']")
+Warnock_runoff = get_candidate(".//Choice[@key='2']")
+Walker_runoff = get_candidate(".//Choice[@key='1']")
 
-President =assign_race(Biden,Trump,"Biden","Trump")
+Senate_runoff =assign_race(Warnock_runoff,Walker_runoff,"Warnock","Walker")
+calculate_shift(Senate_runoff,Senate)
+
+reporting(".//Counties")
+
+write_to_excel(Senate_runoff,"Senate_runoff")
+write_to_excel(Senate,"Senate")
 
 
-url = 'https://results.enr.clarityelections.com//GA//107556/275242/reports/detailxml.zip'
 
-r = requests.get(url)
+#Statmodels(President.total,Senate.total.loc[(Senate.total['Fully Reported']  ==1 )],"Warnock Pct","Total",President.total.loc[(President.total['Fully Reported']  ==1 )]['Total']/2000)
 
-filename = url.split('/')[-1]  # this will take only -1 splitted part of the url
-
-with open(filename, 'wb') as output_file:
-    output_file.write(r.content)
-
-zf = ZipFile('detailxml.zip', 'r')
-zf.extractall()
-zf.close()
-tree = etree.parse('detail.xml')
-root = tree.getroot()
-
-Ossoff = get_candidate(".//Choice[@key='5']")
-Perdue = get_candidate(".//Choice[@key='4']")
-
-Senaterunoff =assign_race(Ossoff,Perdue,"Ossoff","Perdue")
-calculate_shift(Senaterunoff,President)
-
-write_to_excel(President,"President")
-write_to_excel(Senaterunoff,"Senaterunoff")
-#df = df.merge(df1, on='Counties')
-
-#df.to_csv('President.csv', index=False)
-#df.to_json('runoff.json')
 
