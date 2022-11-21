@@ -151,34 +151,21 @@ def calculate_shift(df_2022,df_2020):
      df_2022.total.insert(8, "Pct Shift",df_2022.total["Margin"]-df_2020.total["Margin"])
      df_2022.total.insert(9, "Turnout",df_2022.total["Total"]/df_2020.total["Total"])
 
-def Statmodels(President,Current_race,Current_name,Title,w):
+def Statmodels(Previous_race,Current_race,Current_name,Title,w):
     
-    print(w)
-    Current_race=Current_race.drop(columns =['Total'])
-    Scatter = President.merge(Current_race,on="County")
+  
     
- 
     plt.title(Title)
-    plt.xlabel("Biden Pct")
-    plt.ylabel(Current_name)
+    plt.xlabel("Warnock General Pct")
+    plt.ylabel("Warnock Runoff Pct")
 
-    plt.scatter(Scatter['Biden Pct'],Scatter[Current_name],w)
+    plt.scatter(Previous_race['Warnock Pct'],Current_race[Current_name],w)
    
-   
-    x = President['Biden Pct'].reset_index()
-    y = Current_race[Current_name].dropna().reset_index()
-    w = w.dropna().reset_index()
+  
 
-    Current_graph =x.merge(y,on="index")
-    #Current_graph=Current_graph.drop(columns=['index'])
-    
-    Current_graph =Current_graph.merge(w,on="index")
-    Current_graph=Current_graph.drop(columns=['index'])
-   
-
-    x = Current_graph['Biden Pct']
-    y = Current_graph[Current_name]
-    z = Current_graph.iloc[:,2]
+    x = Previous_race['Warnock Pct']
+    y = Current_race['Warnock Pct']
+    z = w
     
  
     wls_model = sm.WLS(y,x,z)
@@ -187,11 +174,11 @@ def Statmodels(President,Current_race,Current_name,Title,w):
     
     plt.plot(x,results.fittedvalues)
     
-    xpoint = pd.DataFrame(x, columns=['Biden Pct'])
+    xpoint = pd.DataFrame(x, columns=['Warnock Pct'])
     ypoint = pd.DataFrame(results.fittedvalues, columns=['expected'])
     newline = pd.merge(xpoint, ypoint, left_index=True, right_index=True)
     newline =newline.sort_values(by=['expected']).reset_index(drop=True)
-
+    
     swing = (newline.iloc[0][1] - newline.iloc[0][0] + newline.iloc[-1][1] - newline.iloc[-1][0])
     print("{} swing: {:.1%}".format(Title,swing))
     x = np.linspace(0,1,5)
@@ -212,9 +199,14 @@ def reporting(xpath):
 
     df = pd.DataFrame(header,columns=['County'])
     df=df.join(df2, how='outer')
-    print(df)
+    return df
     
     
+url = "https://results.enr.clarityelections.com//GA//115465/314004/reports/detailxml.zip"
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+r = requests.get(url,headers=headers) 
+with open("detail.zip",'wb') as f:
+    f.write(r.content)
 
 tree = etree.parse('detail2022.xml')
 root = tree.getroot()
@@ -228,19 +220,25 @@ Senate =assign_race(Warnock,Walker,"Warnock","Walker")
 tree = etree.parse('detail.xml')
 root = tree.getroot()
 
-Warnock_runoff = get_candidate(".//Choice[@key='2']")
-Walker_runoff = get_candidate(".//Choice[@key='1']")
+#Warnock_runoff = get_candidate(".//Choice[@key='2']")
+#Walker_runoff = get_candidate(".//Choice[@key='1']")
+
+Warnock_runoff = get_candidate(".//Choice[@key='25']")
+Walker_runoff = get_candidate(".//Choice[@key='19']")
 
 Senate_runoff =assign_race(Warnock_runoff,Walker_runoff,"Warnock","Walker")
 calculate_shift(Senate_runoff,Senate)
 
-reporting(".//Counties")
+reporting_precincts =reporting(".//Counties")
+Senate_runoff.total=Senate_runoff.total.merge(reporting_precincts,on="County")
+Senate.total=Senate.total.merge(reporting_precincts,on="County")
+
 
 write_to_excel(Senate_runoff,"Senate_runoff")
 write_to_excel(Senate,"Senate")
 
 
 
-#Statmodels(President.total,Senate.total.loc[(Senate.total['Fully Reported']  ==1 )],"Warnock Pct","Total",President.total.loc[(President.total['Fully Reported']  ==1 )]['Total']/2000)
+Statmodels(Senate.total.loc[(Senate.total['precinctsReportingPercent']  =="100.00" )],Senate_runoff.total.loc[(Senate_runoff.total['precinctsReportingPercent']  =='100.00' )],"Warnock Pct","Total",Senate.total.loc[(Senate.total['precinctsReportingPercent']  =="100.00" )]['Total']/750)
 
 
