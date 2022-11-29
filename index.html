@@ -12,7 +12,10 @@
         crossorigin=""/>
         <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
         integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
-        crossorigin=""></script>
+        crossorigin="">
+         </script>
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
        
         <style>
             body{
@@ -93,7 +96,7 @@
                 text-align: center;
                 text-decoration: none;
                 display: inline-block;
-                
+                padding: 10px;
                 font-size: 16px;
 }
           
@@ -102,106 +105,75 @@
     </head>
     
     <body>
-       
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+              <button class="nav-link " id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Mail Returned</button>
+              <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+            </div>
+          </nav>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum quam, unde harum itaque dolorem, distinctio sapiente doloribus, aliquid suscipit esse cumque cum eaque soluta iusto?</div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+             
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+              
+        
+            </div>
+          </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <div id='map'></div>
-        <h1>MN 1st Special Election Results</h1>
-        <div id ="block" style="background-color: #035382;Left: 75px; "><p id="label">>50%</p></div>
-        <div id ="block" style="background-color: #16628e;Left: 125px; "><p id="label">>40%</p></div>
-        <div id ="block" style="background-color: #29719b;Left: 175px; "><p id="label">>30%</p></div>
-        <div id ="block" style="background-color: #3c81a7;Left: 225px; "><p id="label">>20%</p></div>
-        <div id ="block" style="background-color: #4f90b3;Left: 275px; "><p id="label">>10%</p></div>
-        <div id ="block" style="background-color: #629fc0;Left: 325px; "><p id="label">>10%</p></div>
-        <div id ="block" style="background-color: #75aecc;Left: 375px; "><p id="label">>5%</p></div>
-        <div id ="block" style="background-color: #89bed8;Left: 425px; "><p id="label">>0%</p></div>
-        <div id ="block" style="background-color: #ccc9c0;Left: 475px; "><p id="label">=0%</p></div>
-        <div id ="block" style="background-color: #f09a7b;Left: 525px; "><p id="label">>0%</p></div>
-        <div id ="block" style="background-color: #e7846e;Left: 575px; "><p id="label">>5%</p></div>
-        <div id ="block" style="background-color: #dd6e60;Left: 625px; "><p id="label">>10%</p></div>
-        <div id ="block" style="background-color: #d45853;Left: 675px; "><p id="label">>15%</p></div>
-        <div id ="block" style="background-color: #cb4245;Left: 725px; "><p id="label">>20%</p></div>
-        <div id ="block" style="background-color: #c22c38;Left: 775px; "><p id="label">>30%</p></div>
-        <div id ="block" style="background-color: #b8162a;Left: 825px; "><p id="label">>40%</p></div>
-        <div id ="block" style="background-color: #af001d;Left: 875px; "><p id="label">>50%</p></div>
+        <h1>Georgia Senate Runoff</h1>
+        <div id ="block" style="background-color: #035382;Left: 75px;Top:900px "><p id="label">>50%</p></div>
+        <div id ="block" style="background-color: #16628e;Left: 125px;Top:900px "><p id="label">>40%</p></div>
+        <div id ="block" style="background-color: #29719b;Left: 175px;Top:900px "><p id="label">>30%</p></div>
+        <div id ="block" style="background-color: #3c81a7;Left: 225px;Top:900px "><p id="label">>20%</p></div>
+        <div id ="block" style="background-color: #4f90b3;Left: 275px;Top:900px "><p id="label">>10%</p></div>
+        <div id ="block" style="background-color: #629fc0;Left: 325px;Top:900px "><p id="label">>10%</p></div>
+        <div id ="block" style="background-color: #75aecc;Left: 375px;Top:900px "><p id="label">>5%</p></div>
+        <div id ="block" style="background-color: #89bed8;Left: 425px;Top:900px "><p id="label">>0%</p></div>
+        <div id ="block" style="background-color: #ccc9c0;Left: 475px;Top:900px "><p id="label">=0%</p></div>
+        <div id ="block" style="background-color: #f09a7b;Left: 525px;Top:900px "><p id="label">>0%</p></div>
+        <div id ="block" style="background-color: #e7846e;Left: 575px;Top:900px "><p id="label">>5%</p></div>
+        <div id ="block" style="background-color: #dd6e60;Left: 625px;Top:900px "><p id="label">>10%</p></div>
+        <div id ="block" style="background-color: #d45853;Left: 675px;Top:900px "><p id="label">>15%</p></div>
+        <div id ="block" style="background-color: #cb4245;Left: 725px;Top:900px "><p id="label">>20%</p></div>
+        <div id ="block" style="background-color: #c22c38;Left: 775px;Top:900px "><p id="label">>30%</p></div>
+        <div id ="block" style="background-color: #b8162a;Left: 825px;Top:900px "><p id="label">>40%</p></div>
+        <div id ="block" style="background-color: #af001d;Left: 875px;Top:900px "><p id="label">>50%</p></div>
         <div id='info'>
-            <b> Name</b><br />Brad Finstad:&nbsp; Total Votes</b><br />Jeff Ettinger: Total Votes
+            <b> Name</b><br />Raphael Warnock:&nbsp; Total Votes</b><br />Herschel Walker: Total Votes
         </div>
         <div class="square"></div>
-        <div id ='summary'> <b> Total</b><br />Brad Finstad:&nbsp; Total Votes</b><br />Jeff Ettinger: Total Votes</div>
+        <div id ='summary'> <b> Total</b><br />Raphael Warnock:&nbsp; Total Votes</b><br />Herschel Walker: Total Votes</div>
         <div class="square2"></div>
-        <button id = 'BCounty'class="button"  style="Top: 875px; Left:200px;">COUNTY</button>
-        <button id = 'BPrecinct' class="button"  style="Top: 875px; Left:600px;">PRECINCT</button>
+        
         <script>
              var geojson; 
              var geojson2;
             function style(feature) {
 		        return {
-			        weight: .5,
-			        opacity: 0.7,
 			        color: getColor(feature.properties.MARGIN),			
 			        fillOpacity: 0.7,
-			        fillColor: getColor(feature.properties.MARGIN)
+			        fillColor: getColor(feature.properties.MARGIN),
+                    weight: 1,
+                    color: '#FFFFFF',
 		        };
 	        }       
-            var map = L.map('map').setView([44.163578, -93.999400], 7.3);
+            var map = L.map('map').setView([32.8407, -83.6324], 7);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                  maxZoom: 19,
                  attribution: '© OpenStreetMap'
             }).addTo(map);
-            let url = 'https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/Precincts_Output.geojson';
-            let url2 = 'https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/Counties_Output.geojson';
-            let url3 ='https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/Poutput.json';
-            let url4 ='https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/coutput.json';
-            
-            
-                
            
-            const response3 = fetch(url3).then(response3 => response3.json()).then(response3 => {
-            const response = fetch(url).then(response => response.json()).then(response => {
-            let len =0 
-            len =response.features.len;
+            let url1 = 'https://raw.githubusercontent.com/Napervillpol/Georgia-2022/main/Counties.geojson';
            
-            let DVOTE=0;
-            let RVOTE=0;
-            let TVOTE=0;
-           
-       
-                for ( var i in response.features) {
-                    
-                    DVOTE += parseInt(response.features[i].properties.DEM_VOTES)
-                    RVOTE += parseInt(response.features[i].properties.GOP_VOTES)
-                    TVOTE += parseInt(response.features[i].properties.TOTAL_VOTES)
-                   
-                    for ( var j in response.features) {
-                        
-                        if(response.features[i].properties.ID == response3['ID'][j]){
-                        
-                            response.features[i].properties.DEM_VOTES = response3['Ettinger - DFL'][j]
-                            response.features[i].properties.GOP_VOTES =  response3['Finstad - R'][j]
-                            response.features[i].properties.TOTAL_VOTES = response3['Total'][j]
-                            response.features[i].properties.MARGIN = (response3['Ettinger - DFL'][j]-response3['Finstad - R'][j])/ response3['Total'][j]
-                        }
-                    }
-                
-                }         
-            geojson = L.geoJson(response,
-            {
-               
-                style: style,
-                onEachFeature: onEachFeature
-                
-            });
+            let url2 ='https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/coutput.json';
             
             
-            
-                
-            document.getElementById("summary").innerHTML = "<b>Total</b>" + '<br />'+ 'Brad Finstad:&nbsp;'+ RVOTE + '&nbsp&nbsp('+Math.round(RVOTE/(TVOTE)*100)+'%)'+'</b><br />' + 'Jeff Ettinger: &nbsp;' + DVOTE +'&nbsp&nbsp('+Math.round(DVOTE/(TVOTE)*100)+'%)'
-            
-            
-            map.addLayer(geojson)
-        })
-        })
-        const response2 = fetch(url2).then(response2 => response2.json()).then(response2 => {
-            const response4 = fetch(url4).then(response4 => response4.json()).then(response4 => {                
+        const response1 = fetch(url1).then(response2 => response2.json()).then(response1 => {
+            const response2 = fetch(url2).then(response4 => response4.json()).then(response2 => {                
             for ( var i in response2.features) {
                     
                   
@@ -221,7 +193,7 @@
             
             
             
-                            geojson2= L.geoJson(response2,
+                            geojson= L.geoJson(response1,
                             {
                                
                                 style: style,
@@ -229,17 +201,10 @@
                                 
                             })
                            
-                                             
+                            map.addLayer(geojson)               
                         })                
         })      
 
-
-             document.getElementById("BCounty").addEventListener("click", function() {
-                    ClickCounty();
-                });
-            document.getElementById("BPrecinct").addEventListener("click", function() {
-                ClickPrecinct();
-            });
              
              function getColor(d) {
                 
@@ -319,26 +284,13 @@ function onEachFeature(feature, layer) {
 info.update = function (props) {
     
     document.getElementById("info").innerHTML =  (props ?
-        '<b>' + props.PCTNAME + '</b><br />'+ 'Brad Finstad:&nbsp;'+ props.GOP_VOTES + '&nbsp&nbsp('+Math.round(props.GOP_VOTES/(props.TOTAL_VOTES)*100)+'%)'+'</b><br />' + 'Jeff Ettinger: &nbsp;' + props.DEM_VOTES +'&nbsp&nbsp('+Math.round(props.DEM_VOTES/(props.GOP_VOTES+props.DEM_VOTES)*100)+'%)'
-        : '<b>' + 'Name' + '</b><br />'+ 'Brad Finstad:&nbsp;'+ ' Total Votes' + '</b><br />' + 'Jeff Ettinger: ' + 'Total Votes');
+        '<b>' + props.PCTNAME + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ props.GOP_VOTES + '&nbsp&nbsp('+Math.round(props.GOP_VOTES/(props.TOTAL_VOTES)*100)+'%)'+'</b><br />' + 'Herschel Walker: &nbsp;' + props.DEM_VOTES +'&nbsp&nbsp('+Math.round(props.DEM_VOTES/(props.GOP_VOTES+props.DEM_VOTES)*100)+'%)'
+        : '<b>' + 'Name' + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ ' Total Votes' + '</b><br />' + 'Herschel Walker: ' + 'Total Votes');
 };
 
-    function ClickCounty(){
-
-      
-       map.removeLayer(geojson)
-       map.addLayer(geojson2)
-    
-                        
-    }
-
-    function ClickPrecinct(){
-    map.removeLayer(geojson2)
-       map.addLayer(geojson)
    
-                                                  
-                        
-    }
+
+   
 
 
         </script>
