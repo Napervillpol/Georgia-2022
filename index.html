@@ -15,8 +15,7 @@
         crossorigin="">
          </script>
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-       
+        
         <style>
             body{
                 margin: 0;
@@ -24,276 +23,223 @@
             }
 
             h1{
-                text-align: left;
-                padding-left:250px;
+                text-align: center;
+                
             }
-
+           
             #map{
-                position: absolute;
-                top: 150px;
-                bottom: 0;
-                left: 75px;
+                
+                display: block;
+                margin-top: 1rem;
+                margin-left: auto;
+                margin-right: auto;
+                
                 width: 800px;
                 height: 700px;
                 border-style: ridge;
             }
-            .square {
-                position: absolute;               
-                Left: 980px;
-                Top: 150px;
-                height: 100px;
-                width: 230px;
-               
-                border-style: solid;
-                border-color: black;
-                border-width: 2px;
-            }
-            #info {
-                position: absolute;               
-                Left: 1000px;
-                Top: 170px;
-                font: 16px/20px Arial, Helvetica, sans-serif;
-                background: white;
-            }
+           
 
             #block {
-                position: absolute;   
+                
+                float: left;   
+                
                 height: 30px;
-                width:  50px;
-                
+                width:  50px;         
                 
             }
-            #label{
-                font: 14px/1.3em Open Sans,sans-serif;
-                margin-top: 40px;
-                font-style: italic;
-                text-align: center;
+    
+            .container{
+                padding: 2rem;
+                height: 2000px;
+                width:  1000px;
             }
-            .square2 {
-                position: absolute;               
-                Left: 980px;
-                Top: 350px;
-                height: 100px;
-                width: 250px;
-               
+            
+            .tabcover{
+                padding: .5rem;
                 border-style: solid;
                 border-color: black;
-                border-width: 2px;
+                border-width: 2px; 
+                border-radius: 10px;
             }
-            #summary {
-                position: absolute;               
-                Left: 1000px;
-                Top: 370px;
-                font: 16px/20px Arial, Helvetica, sans-serif;
-                background: white;
+            .legendcover{
+                padding: .5rem;
+                margin-left: 2rem;
             }
-            .button {
-                position: absolute; 
-                background-color: #ccc9c0; 
-                border: none;
-                color: black;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                padding: 10px;
-                font-size: 16px;
-}
-          
-            
+        
         </style>
     </head>
     
     <body>
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
-              <button class="nav-link " id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Mail Returned</button>
-              <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
-            </div>
-          </nav>
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum quam, unde harum itaque dolorem, distinctio sapiente doloribus, aliquid suscipit esse cumque cum eaque soluta iusto?</div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-             
-            </div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-              
-        
-            </div>
-          </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <div id='map'></div>
+      
+       
         <h1>Georgia Senate Runoff</h1>
-        <div id ="block" style="background-color: #035382;Left: 75px;Top:900px "><p id="label">>50%</p></div>
-        <div id ="block" style="background-color: #16628e;Left: 125px;Top:900px "><p id="label">>40%</p></div>
-        <div id ="block" style="background-color: #29719b;Left: 175px;Top:900px "><p id="label">>30%</p></div>
-        <div id ="block" style="background-color: #3c81a7;Left: 225px;Top:900px "><p id="label">>20%</p></div>
-        <div id ="block" style="background-color: #4f90b3;Left: 275px;Top:900px "><p id="label">>10%</p></div>
-        <div id ="block" style="background-color: #629fc0;Left: 325px;Top:900px "><p id="label">>10%</p></div>
-        <div id ="block" style="background-color: #75aecc;Left: 375px;Top:900px "><p id="label">>5%</p></div>
-        <div id ="block" style="background-color: #89bed8;Left: 425px;Top:900px "><p id="label">>0%</p></div>
-        <div id ="block" style="background-color: #ccc9c0;Left: 475px;Top:900px "><p id="label">=0%</p></div>
-        <div id ="block" style="background-color: #f09a7b;Left: 525px;Top:900px "><p id="label">>0%</p></div>
-        <div id ="block" style="background-color: #e7846e;Left: 575px;Top:900px "><p id="label">>5%</p></div>
-        <div id ="block" style="background-color: #dd6e60;Left: 625px;Top:900px "><p id="label">>10%</p></div>
-        <div id ="block" style="background-color: #d45853;Left: 675px;Top:900px "><p id="label">>15%</p></div>
-        <div id ="block" style="background-color: #cb4245;Left: 725px;Top:900px "><p id="label">>20%</p></div>
-        <div id ="block" style="background-color: #c22c38;Left: 775px;Top:900px "><p id="label">>30%</p></div>
-        <div id ="block" style="background-color: #b8162a;Left: 825px;Top:900px "><p id="label">>40%</p></div>
-        <div id ="block" style="background-color: #af001d;Left: 875px;Top:900px "><p id="label">>50%</p></div>
-        <div id='info'>
-            <b> Name</b><br />Raphael Warnock:&nbsp; Total Votes</b><br />Herschel Walker: Total Votes
-        </div>
-        <div class="square"></div>
-        <div id ='summary'> <b> Total</b><br />Raphael Warnock:&nbsp; Total Votes</b><br />Herschel Walker: Total Votes</div>
-        <div class="square2"></div>
-        
-        <script>
-             var geojson; 
-             var geojson2;
-            function style(feature) {
-		        return {
-			        color: getColor(feature.properties.MARGIN),			
-			        fillOpacity: 0.7,
-			        fillColor: getColor(feature.properties.MARGIN),
-                    weight: 1,
-                    color: '#FFFFFF',
-		        };
-	        }       
-            var map = L.map('map').setView([32.8407, -83.6324], 7);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                 maxZoom: 19,
-                 attribution: '© OpenStreetMap'
-            }).addTo(map);
-           
-            let url1 = 'https://raw.githubusercontent.com/Napervillpol/Georgia-2022/main/Counties.geojson';
-           
-            let url2 ='https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/coutput.json';
+        <div class="container">
+            <div class="tabcover">
+                <nav>
+                    <div class="nav nav-pills nav-justified" id="pills-tab" role="tablist">
+                      <button class="nav-link active" id="nav-mail-tab" data-bs-toggle="tab" data-bs-target="#nav-mail" type="button" role="tab" aria-controls="nav-mail" aria-selected="true">Mail</button>
+                      <button class="nav-link " id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Advance</button>
+                      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Election Day</button>
+                      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Total</button>
+                    </div>
+                </nav> 
+            </div>
             
-            
-        const response1 = fetch(url1).then(response2 => response2.json()).then(response1 => {
-            const response2 = fetch(url2).then(response4 => response4.json()).then(response2 => {                
-            for ( var i in response2.features) {
-                    
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane show active" id="nav-mail" role="tabpanel" aria-labelledby="nav-mail-tab">
+                    <div id='map'></div>
+                    <script>
+                        var geojson; 
+                        var geojson2;
+                        
+                        function style(feature) {
+                           return {
+                               color: getColor(feature.properties.MARGIN),			
+                               fillOpacity: 0.7,
+                               fillColor: getColor(feature.properties.MARGIN),
+                               weight: 1,
+                               color: '#FFFFFF',
+                           };
+                       }       
+                       var map = L.map('map').setView([32.8407, -83.6324], 7);
+                       
+                       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 19,
+                            attribution: '© OpenStreetMap'
+                       }).addTo(map);
+                      
+                       let url1 = 'https://raw.githubusercontent.com/Napervillpol/Georgia-2022/main/Counties.geojson';
+                      
+                       let url2 ='https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/coutput.json';
+                       
+                       
+                       const response1 = fetch(url1).then(response2 => response2.json()).then(response1 => {
+                           const response2 = fetch(url2).then(response4 => response4.json()).then(response2 => {                
+                                   
+                               geojson= L.geoJson(response1,
+                               {
+                                   style: style,
+                                   onEachFeature: onEachFeature                                
+                               })                          
+                               map.addLayer(geojson)               
+                           })                
+                       })      
+                        
+                        function getColor(d) {                
+                           return d > .5 ? '#035382' :
+                           d > .4  ? '#16628e' :
+                           d > .3  ? '#29719b' :
+                           d > .2 ? '#3c81a7' :
+                           d > .15 ? '#4f90b3' :
+                           d > .1   ? '#629fc0' :
+                           d > .05  ? '#75aecc' : 
+                           d > 0 ? '#89bed8':
+                           d == 0 ? '#ccc9c0':
+                           d < -.5 ? '#af001d':
+                           d <-.4  ? '#b8162a' : 
+                           d < -.3   ? '#c22c38' :
+                           d < -.2 ? '#cb4245' :
+                           d < -.15 ? '#d45853' :
+                           d < -.1  ? '#dd6e60' :
+                           d < -.05  ? '#e7846e' :
+                           d < 0 ? '#f09a7b' :
+                           '#ccc9c0';
+                       }
+           
+                       function getColorP(d) {
+                           d = -d;
+                               return d > .5 ? '#7b3294' :
+                               d > .4  ? '#84419c' :
+                               d > .3  ? '#8e50a4' :
+                               d > .2 ? '#9760ac' :
+                               d > .15 ? '#a16fb4' :
+                               d > .1   ? '#ab7fbc' :
+                               d > .05  ? '#b48ec3' : 
+                               d > 0 ? '#be9dcb':
+                               d == 0 ? '#ccc9c0':
+                               d < -.5 ? '#008837':
+                               d <-.4  ? '#169345' : 
+                               d < -.3   ? '#2c9e53' :
+                               d < -.2 ? '#42a961' :
+                               d < -.15 ? '#58b46f' :
+                               d < -.1  ? '#6fc07d' :
+                               d < -.05  ? '#85cb8b' :
+                               d < 0 ? '#9bd699' :
+                               '#fae194';
+                       }
+           
+                       function highlightFeature(e) {
+                           var layer = e.target;
+           
+                           layer.setStyle({
+                               weight: 2,
+                               color: '#000000', 
+                               fillOpacity: 0.7
+                           });
+                   
+                           info.update(layer.feature.properties);
+           
+                           if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                               layer.bringToFront();
+                           }
+                       }
+           
+                       function resetHighlight(e) {
+                           geojson.resetStyle(e.target);
+                           info.update();
+                       }
+                   
+                       function zoomToFeature(e) {
+                            map.fitBounds(e.target.getBounds());
+                       }
+           
+                       function onEachFeature(feature, layer) {
+                           layer.on({
+                               mouseover: highlightFeature,
+                               mouseout: resetHighlight,
+                               click: zoomToFeature
+                           });
+                       }
+                   
+                       /*info.update = function (props) {  
+                           document.getElementById("info").innerHTML =  (props ?
+                           '<b>' + props.PCTNAME + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ props.GOP_VOTES + '&nbsp&nbsp('+Math.round(props.GOP_VOTES/(props.TOTAL_VOTES)*100)+'%)'+'</b><br />' + 'Herschel Walker: &nbsp;' + props.DEM_VOTES +'&nbsp&nbsp('+Math.round(props.DEM_VOTES/(props.GOP_VOTES+props.DEM_VOTES)*100)+'%)'
+                           : '<b>' + 'Name' + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ ' Total Votes' + '</b><br />' + 'Herschel Walker: ' + 'Total Votes');
+                       }; */
+                   </script>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                 
+                </div>
+                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                   
-                for ( var j in response2.features) {
-                        
-                        if(response2.features[i].properties.COUN == response4['County Code'][j]){
-                        
-                            response2.features[i].properties.DEM_VOTES = response4['Ettinger - DFL'][j]
-                            response2.features[i].properties.GOP_VOTES =  response4['Finstad - R'][j]
-                            response2.features[i].properties.TOTAL_VOTES = response4['Total'][j]
-                            response2.features[i].properties.MARGIN = response4['Margin'][j]
-                        }
-                    }
-                    
-                
-                }         
             
-            
-            
-                            geojson= L.geoJson(response1,
-                            {
-                               
-                                style: style,
-                                onEachFeature: onEachFeature
-                                
-                            })
-                           
-                            map.addLayer(geojson)               
-                        })                
-        })      
-
-             
-             function getColor(d) {
-                
-		        return d > .5 ? '#035382' :
-			    d > .4  ? '#16628e' :
-			    d > .3  ? '#29719b' :
-			    d > .2 ? '#3c81a7' :
-			    d > .15 ? '#4f90b3' :
-			    d > .1   ? '#629fc0' :
-			    d > .05  ? '#75aecc' : 
-                d > 0 ? '#89bed8':
-                d == 0 ? '#ccc9c0':
-                d < -.5 ? '#af001d':
-			    d <-.4  ? '#b8162a' : 
-			    d < -.3   ? '#c22c38' :
-			    d < -.2 ? '#cb4245' :
-			    d < -.15 ? '#d45853' :
-			    d < -.1  ? '#dd6e60' :
-			    d < -.05  ? '#e7846e' :
-                d < 0 ? '#f09a7b' :
-                '#ccc9c0';
-	    }
-
-        function getColorP(d) {
-            d = -d;
-		        return d > .5 ? '#7b3294' :
-			    d > .4  ? '#84419c' :
-			    d > .3  ? '#8e50a4' :
-			    d > .2 ? '#9760ac' :
-			    d > .15 ? '#a16fb4' :
-			    d > .1   ? '#ab7fbc' :
-			    d > .05  ? '#b48ec3' : 
-                d > 0 ? '#be9dcb':
-                d == 0 ? '#ccc9c0':
-                d < -.5 ? '#008837':
-			    d <-.4  ? '#169345' : 
-			    d < -.3   ? '#2c9e53' :
-			    d < -.2 ? '#42a961' :
-			    d < -.15 ? '#58b46f' :
-			    d < -.1  ? '#6fc07d' :
-			    d < -.05  ? '#85cb8b' :
-                d < 0 ? '#9bd699' :
-                '#fae194';
-	    }
-
-        function highlightFeature(e) {
-        var layer = e.target;
-
-         layer.setStyle({
-            weight: 2,
-            color: '#000000',
-            
-            fillOpacity: 0.7
-        });
-        info.update(layer.feature.properties);
-
-            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                layer.bringToFront();
-            }
-        }
-        function resetHighlight(e) {
-            geojson.resetStyle(e.target);
-            info.update();
-
-        }
-        function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
-}
-
-function onEachFeature(feature, layer) {
-    layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
-        click: zoomToFeature
-    });
-}
-info.update = function (props) {
-    
-    document.getElementById("info").innerHTML =  (props ?
-        '<b>' + props.PCTNAME + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ props.GOP_VOTES + '&nbsp&nbsp('+Math.round(props.GOP_VOTES/(props.TOTAL_VOTES)*100)+'%)'+'</b><br />' + 'Herschel Walker: &nbsp;' + props.DEM_VOTES +'&nbsp&nbsp('+Math.round(props.DEM_VOTES/(props.GOP_VOTES+props.DEM_VOTES)*100)+'%)'
-        : '<b>' + 'Name' + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ ' Total Votes' + '</b><br />' + 'Herschel Walker: ' + 'Total Votes');
-};
-
-   
-
-   
-
-
-        </script>
+                </div>
+            </div>
+            <div class="legendcover">
+                <div id ="block" style="background-color: #035382;Left: 75px;Top:900px "><p id="label">>50%</p></div>
+                <div id ="block" style="background-color: #16628e;Left: 125px;Top:900px "><p id="label">>40%</p></div>
+                <div id ="block" style="background-color: #29719b;Left: 175px;Top:900px "><p id="label">>30%</p></div>
+                <div id ="block" style="background-color: #3c81a7;Left: 225px;Top:900px "><p id="label">>20%</p></div>
+                <div id ="block" style="background-color: #4f90b3;Left: 275px;Top:900px "><p id="label">>10%</p></div>
+                <div id ="block" style="background-color: #629fc0;Left: 325px;Top:900px "><p id="label">>10%</p></div>
+                <div id ="block" style="background-color: #75aecc;Left: 375px;Top:900px "><p id="label">>5%</p></div>
+                <div id ="block" style="background-color: #89bed8;Left: 425px;Top:900px "><p id="label">>0%</p></div>
+                <div id ="block" style="background-color: #ccc9c0;Left: 475px;Top:900px "><p id="label">=0%</p></div>
+                <div id ="block" style="background-color: #f09a7b;Left: 525px;Top:900px "><p id="label">>0%</p></div>
+                <div id ="block" style="background-color: #e7846e;Left: 575px;Top:900px "><p id="label">>5%</p></div>
+                <div id ="block" style="background-color: #dd6e60;Left: 625px;Top:900px "><p id="label">>10%</p></div>
+                <div id ="block" style="background-color: #d45853;Left: 675px;Top:900px "><p id="label">>15%</p></div>
+                <div id ="block" style="background-color: #cb4245;Left: 725px;Top:900px "><p id="label">>20%</p></div>
+                <div id ="block" style="background-color: #c22c38;Left: 775px;Top:900px "><p id="label">>30%</p></div>
+                <div id ="block" style="background-color: #b8162a;Left: 825px;Top:900px "><p id="label">>40%</p></div>
+                <div id ="block" style="background-color: #af001d;Left: 875px;Top:900px "><p id="label">>50%</p></div>
+            </div>
+           
+        </div>
+        
         
     </body>
 </html>

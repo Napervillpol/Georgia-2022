@@ -217,14 +217,14 @@ Walker = get_candidate(".//Choice[@key='1']")
 Senate =assign_race(Warnock,Walker,"Warnock","Walker")
 
 
-tree = etree.parse('detail.xml')
+tree = etree.parse('detailtest.xml')
 root = tree.getroot()
 
 #Warnock_runoff = get_candidate(".//Choice[@key='2']")
 #Walker_runoff = get_candidate(".//Choice[@key='1']")
 
-Warnock_runoff = get_candidate(".//Choice[@key='25']")
-Walker_runoff = get_candidate(".//Choice[@key='19']")
+Warnock_runoff = get_candidate(".//Choice[@key='2']")
+Walker_runoff = get_candidate(".//Choice[@key='1']")
 
 Senate_runoff =assign_race(Warnock_runoff,Walker_runoff,"Warnock","Walker")
 calculate_shift(Senate_runoff,Senate)
