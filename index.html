@@ -80,9 +80,9 @@
                 <nav>
                     <div class="nav nav-pills nav-justified" id="pills-tab" role="tablist">
                       <button class="nav-link active" id="nav-mail-tab" data-bs-toggle="tab" data-bs-target="#nav-mail" type="button" role="tab" aria-controls="nav-mail" aria-selected="true">Mail</button>
-                      <button class="nav-link " id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Advance</button>
-                      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Election Day</button>
-                      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Total</button>
+                      <button class="nav-link " id="nav-advance-tab" data-bs-toggle="tab" data-bs-target="#nav-advance" type="button" role="tab" aria-controls="nav-advance" aria-selected="false">Advance</button>
+                      <button class="nav-link" id="nav-eday-tab" data-bs-toggle="tab" data-bs-target="#nav-eday" type="button" role="tab" aria-controls="nav-eday" aria-selected="false">Election Day</button>
+                      <button class="nav-link" id="nav-total-tab" data-bs-toggle="tab" data-bs-target="#nav-total" type="button" role="tab" aria-controls="nav-total" aria-selected="false">Total</button>
                     </div>
                 </nav> 
             </div>
@@ -96,9 +96,9 @@
                         
                         function style(feature) {
                            return {
-                               color: getColor(feature.properties.MARGIN),			
+                               color: getColor(feature.properties.Margin_Total),			
                                fillOpacity: 0.7,
-                               fillColor: getColor(feature.properties.MARGIN),
+                               fillColor: getColor(feature.properties.Margin_Total),
                                weight: 1,
                                color: '#FFFFFF',
                            };
@@ -110,7 +110,7 @@
                             attribution: '© OpenStreetMap'
                        }).addTo(map);
                       
-                       let url1 = 'https://raw.githubusercontent.com/Napervillpol/Georgia-2022/main/Counties.geojson';
+                       let url1 = 'https://raw.githubusercontent.com/Napervillpol/Georgia-2022/bootstrap/Georgia_runoff.geojson';
                       
                        let url2 ='https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/coutput.json';
                        
@@ -179,7 +179,7 @@
                                fillOpacity: 0.7
                            });
                    
-                           info.update(layer.feature.properties);
+                           //info.update(layer.feature.properties);
            
                            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
                                layer.bringToFront();
@@ -188,7 +188,7 @@
            
                        function resetHighlight(e) {
                            geojson.resetStyle(e.target);
-                           info.update();
+                           //info.update();
                        }
                    
                        function zoomToFeature(e) {
@@ -209,13 +209,17 @@
                            : '<b>' + 'Name' + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ ' Total Votes' + '</b><br />' + 'Herschel Walker: ' + 'Total Votes');
                        }; */
                    </script>
+                   </div>
+
+                <div class="tab-pane" id="nav-advance" role="tabpanel" aria-labelledby="nav-advance-tab">
+
                 </div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                 
+                <div class="tab-pane" id="nav-eday" role="tabpanel" aria-labelledby="nav-eday-tab">
+                
                 </div>
-                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                  
-            
+
+                <div class="tab-pane" id="nav-total" role="tabpanel" aria-labelledby="nav-total-tab">
+                
                 </div>
             </div>
             <div class="legendcover">
