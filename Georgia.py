@@ -202,29 +202,34 @@ def reporting(xpath):
     return df
     
     
+
+Warnock = pd.read_csv("Data/Warnock.csv")
+Walker = pd.read_csv("Data/Walker.csv")
+Senate =assign_race(Warnock,Walker,"Warnock","Walker")
+
 url = "https://results.enr.clarityelections.com//GA//115465/314004/reports/detailxml.zip"
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 r = requests.get(url,headers=headers) 
-with open("detail.zip",'wb') as f:
+with open("detailxml.zip",'wb') as f:
     f.write(r.content)
 
-tree = etree.parse('detail2022.xml')
+filename = url.split('/')[-1]  # this will take only -1 splitted part of the url
+
+with open(filename, 'wb') as output_file:
+    output_file.write(r.content)
+    
+    zf = ZipFile('detailxml.zip', 'r')
+    zf.extractall()
+    zf.close()
+
+tree = etree.parse('detail.xml')
 root = tree.getroot()
 
-Warnock = get_candidate(".//Choice[@key='2']")
-Walker = get_candidate(".//Choice[@key='1']")
-
-Senate =assign_race(Warnock,Walker,"Warnock","Walker")
-
-
-tree = etree.parse('detailtest.xml')
-root = tree.getroot()
-
-#Warnock_runoff = get_candidate(".//Choice[@key='2']")
-#Walker_runoff = get_candidate(".//Choice[@key='1']")
 
 Warnock_runoff = get_candidate(".//Choice[@key='2']")
 Walker_runoff = get_candidate(".//Choice[@key='1']")
+
+
 
 Senate_runoff =assign_race(Warnock_runoff,Walker_runoff,"Warnock","Walker")
 calculate_shift(Senate_runoff,Senate)
