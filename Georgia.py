@@ -238,9 +238,20 @@ reporting_precincts =reporting(".//Counties")
 Senate_runoff.total=Senate_runoff.total.merge(reporting_precincts,on="County")
 Senate.total=Senate.total.merge(reporting_precincts,on="County")
 
+Mail_vote = pd.read_csv("Data/Mail.csv")
+Advance_vote = pd.read_csv("Data/Advance.csv")
+
+Senate_runoff.mail =Senate_runoff.mail.merge(Mail_vote,on="County")
+Senate_runoff.advance =Senate_runoff.advance.merge(Advance_vote,on="County")
+
+Senate_runoff.mail.insert(11,"Mail Remaining",Senate_runoff.mail['Mail']-Senate_runoff.mail['Total'])
+Senate_runoff.mail.loc[Senate_runoff.mail['Mail Remaining'] < 0, 'Mail Remaining'] =0
+
+Senate_runoff.advance.insert(11,"Advance Remaining",Senate_runoff.advance['Advance']-Senate_runoff.advance['Total'])
+Senate_runoff.advance.loc[Senate_runoff.advance['Advance Remaining'] < 0, 'Advance Remaining'] =0
 
 write_to_excel(Senate_runoff,"Senate_runoff")
-write_to_excel(Senate,"Senate")
+#write_to_excel(Senate,"Senate")
 
 
 
