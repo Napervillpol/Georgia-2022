@@ -88,131 +88,22 @@
             </div>
             
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane show active" id="nav-mail" role="tabpanel" aria-labelledby="nav-mail-tab">
-                    <div id='map'></div>
-                    <script>
-                        var geojson; 
-                        var geojson2;
-                        
-                        function style(feature) {
-                           return {
-                               color: getColor(feature.properties.Margin_Total),			
-                               fillOpacity: 0.7,
-                               fillColor: getColor(feature.properties.Margin_Total),
-                               weight: 1,
-                               color: '#FFFFFF',
-                           };
-                       }       
-                       var map = L.map('map').setView([32.8407, -83.6324], 7);
-                       
-                       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            maxZoom: 19,
-                            attribution: '© OpenStreetMap'
-                       }).addTo(map);
-                      
-                       let url1 = 'https://raw.githubusercontent.com/Napervillpol/Georgia-2022/bootstrap/Georgia_runoff.geojson';
-                      
-                       let url2 ='https://raw.githubusercontent.com/Napervillpol/MN-1st-District-Special/main/coutput.json';
-                       
-                       
-                       const response1 = fetch(url1).then(response2 => response2.json()).then(response1 => {
-                           const response2 = fetch(url2).then(response4 => response4.json()).then(response2 => {                
-                                   
-                               geojson= L.geoJson(response1,
-                               {
-                                   style: style,
-                                   onEachFeature: onEachFeature                                
-                               })                          
-                               map.addLayer(geojson)               
-                           })                
-                       })      
-                        
-                        function getColor(d) {                
-                           return d > .5 ? '#035382' :
-                           d > .4  ? '#16628e' :
-                           d > .3  ? '#29719b' :
-                           d > .2 ? '#3c81a7' :
-                           d > .15 ? '#4f90b3' :
-                           d > .1   ? '#629fc0' :
-                           d > .05  ? '#75aecc' : 
-                           d > 0 ? '#89bed8':
-                           d == 0 ? '#ccc9c0':
-                           d < -.5 ? '#af001d':
-                           d <-.4  ? '#b8162a' : 
-                           d < -.3   ? '#c22c38' :
-                           d < -.2 ? '#cb4245' :
-                           d < -.15 ? '#d45853' :
-                           d < -.1  ? '#dd6e60' :
-                           d < -.05  ? '#e7846e' :
-                           d < 0 ? '#f09a7b' :
-                           '#ccc9c0';
-                       }
-           
-                       function getColorP(d) {
-                           d = -d;
-                               return d > .5 ? '#7b3294' :
-                               d > .4  ? '#84419c' :
-                               d > .3  ? '#8e50a4' :
-                               d > .2 ? '#9760ac' :
-                               d > .15 ? '#a16fb4' :
-                               d > .1   ? '#ab7fbc' :
-                               d > .05  ? '#b48ec3' : 
-                               d > 0 ? '#be9dcb':
-                               d == 0 ? '#ccc9c0':
-                               d < -.5 ? '#008837':
-                               d <-.4  ? '#169345' : 
-                               d < -.3   ? '#2c9e53' :
-                               d < -.2 ? '#42a961' :
-                               d < -.15 ? '#58b46f' :
-                               d < -.1  ? '#6fc07d' :
-                               d < -.05  ? '#85cb8b' :
-                               d < 0 ? '#9bd699' :
-                               '#fae194';
-                       }
-           
-                       function highlightFeature(e) {
-                           var layer = e.target;
-           
-                           layer.setStyle({
-                               weight: 2,
-                               color: '#000000', 
-                               fillOpacity: 0.7
-                           });
-                   
-                           //info.update(layer.feature.properties);
-           
-                           if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                               layer.bringToFront();
-                           }
-                       }
-           
-                       function resetHighlight(e) {
-                           geojson.resetStyle(e.target);
-                           //info.update();
-                       }
-                   
-                       function zoomToFeature(e) {
-                            map.fitBounds(e.target.getBounds());
-                       }
-           
-                       function onEachFeature(feature, layer) {
-                           layer.on({
-                               mouseover: highlightFeature,
-                               mouseout: resetHighlight,
-                               click: zoomToFeature
-                           });
-                       }
-                   
-                       /*info.update = function (props) {  
-                           document.getElementById("info").innerHTML =  (props ?
-                           '<b>' + props.PCTNAME + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ props.GOP_VOTES + '&nbsp&nbsp('+Math.round(props.GOP_VOTES/(props.TOTAL_VOTES)*100)+'%)'+'</b><br />' + 'Herschel Walker: &nbsp;' + props.DEM_VOTES +'&nbsp&nbsp('+Math.round(props.DEM_VOTES/(props.GOP_VOTES+props.DEM_VOTES)*100)+'%)'
-                           : '<b>' + 'Name' + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ ' Total Votes' + '</b><br />' + 'Herschel Walker: ' + 'Total Votes');
-                       }; */
+                <div class="tab-pane" id="nav-mail" role="tabpanel" aria-labelledby="nav-mail-tab">
+                   <script>
+                     function style(feature) {
+                   return {
+                       color: getColor(feature.properties.Margin_Advance),			
+                       fillOpacity: 0.7,
+                       fillColor: getColor(feature.properties.Margin_Advance),
+                       weight: 1,
+                       color: '#FFFFFF',
+                   };
+               }      
                    </script>
-                   </div>
+                </div>
 
                 <div class="tab-pane" id="nav-advance" role="tabpanel" aria-labelledby="nav-advance-tab">
-
+                    
                 </div>
                 <div class="tab-pane" id="nav-eday" role="tabpanel" aria-labelledby="nav-eday-tab">
                 
@@ -222,6 +113,93 @@
                 
                 </div>
             </div>
+            <div id='map'></div>
+            <script>
+                var geojson; 
+                var geojson2;
+              
+               let url = 'https://raw.githubusercontent.com/Napervillpol/Georgia-2022/bootstrap/Georgia.geojson';
+                           
+               const response = fetch(url).then(response => response.json()).then(response => {
+                                  
+                           
+                       geojson= L.geoJson(response,
+                       {
+                           style: style,
+                           onEachFeature: onEachFeature                                
+                       })                          
+                       map.addLayer(geojson)               
+                   })                
+                    
+                var map = L.map('map').setView([32.8407, -83.6324], 7);
+               
+               L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '© OpenStreetMap'
+               }).addTo(map);
+               
+
+                function getColor(d) {                
+                   return d > .5 ? '#035382' :
+                   d > .4  ? '#16628e' :
+                   d > .3  ? '#29719b' :
+                   d > .2 ? '#3c81a7' :
+                   d > .15 ? '#4f90b3' :
+                   d > .1   ? '#629fc0' :
+                   d > .05  ? '#75aecc' : 
+                   d > 0 ? '#89bed8':
+                   d == 0 ? '#ccc9c0':
+                   d < -.5 ? '#af001d':
+                   d <-.4  ? '#b8162a' : 
+                   d < -.3   ? '#c22c38' :
+                   d < -.2 ? '#cb4245' :
+                   d < -.15 ? '#d45853' :
+                   d < -.1  ? '#dd6e60' :
+                   d < -.05  ? '#e7846e' :
+                   d < 0 ? '#f09a7b' :
+                   '#ccc9c0';
+               }
+   
+   
+               function highlightFeature(e) {
+                   var layer = e.target;
+   
+                   layer.setStyle({
+                       weight: 2,
+                       color: '#000000', 
+                       fillOpacity: 0.7
+                   });
+           
+                   //info.update(layer.feature.properties);
+   
+                   if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                       layer.bringToFront();
+                   }
+               }
+   
+               function resetHighlight(e) {
+                   geojson.resetStyle(e.target);
+                   //info.update();
+               }
+           
+               function zoomToFeature(e) {
+                    map.fitBounds(e.target.getBounds());
+               }
+   
+               function onEachFeature(feature, layer) {
+                   layer.on({
+                       mouseover: highlightFeature,
+                       mouseout: resetHighlight,
+                       click: zoomToFeature
+                   });
+               }
+              
+               /*info.update = function (props) {  
+                   document.getElementById("info").innerHTML =  (props ?
+                   '<b>' + props.PCTNAME + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ props.GOP_VOTES + '&nbsp&nbsp('+Math.round(props.GOP_VOTES/(props.TOTAL_VOTES)*100)+'%)'+'</b><br />' + 'Herschel Walker: &nbsp;' + props.DEM_VOTES +'&nbsp&nbsp('+Math.round(props.DEM_VOTES/(props.GOP_VOTES+props.DEM_VOTES)*100)+'%)'
+                   : '<b>' + 'Name' + '</b><br />'+ 'Raphael Warnock:&nbsp;'+ ' Total Votes' + '</b><br />' + 'Herschel Walker: ' + 'Total Votes');
+               }; */
+           </script>
             <div class="legendcover">
                 <div id ="block" style="background-color: #035382;Left: 75px;Top:900px "><p id="label">>50%</p></div>
                 <div id ="block" style="background-color: #16628e;Left: 125px;Top:900px "><p id="label">>40%</p></div>
