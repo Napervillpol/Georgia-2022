@@ -207,7 +207,7 @@ Warnock = pd.read_csv("Data/Warnock.csv")
 Walker = pd.read_csv("Data/Walker.csv")
 Senate =assign_race(Warnock,Walker,"Warnock","Walker")
 
-url = "https://results.enr.clarityelections.com//GA//115465/314004/reports/detailxml.zip"
+url = "https://results.enr.clarityelections.com//GA//116564/315066/reports/detailxml.zip"
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 r = requests.get(url,headers=headers) 
 with open("detailxml.zip",'wb') as f:
@@ -215,12 +215,8 @@ with open("detailxml.zip",'wb') as f:
 
 filename = url.split('/')[-1]  # this will take only -1 splitted part of the url
 
-with open(filename, 'wb') as output_file:
-    output_file.write(r.content)
-    
-    zf = ZipFile('detailxml.zip', 'r')
-    zf.extractall()
-    zf.close()
+zip = ZipFile('detailxml.zip')
+zip.extractall()
 
 tree = etree.parse('detail.xml')
 root = tree.getroot()
